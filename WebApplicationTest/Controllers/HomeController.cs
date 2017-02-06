@@ -20,6 +20,13 @@ namespace WebApplicationTest.Controllers
             return View();
         }
 
+        public ActionResult TestAction()
+        {
+            ViewBag.Message = "Your application description page is bla bla.";
+
+            return View("Contact");
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
