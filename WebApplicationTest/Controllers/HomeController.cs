@@ -22,9 +22,23 @@ namespace WebApplicationTest.Controllers
 
         public ActionResult TestAction()
         {
-            ViewBag.Message = "Your application description page is bla bla.";
+            //ViewBag.Message = "Your application description page is bla bla.";
 
-            return View("Contact");
+            string[] months = { "January", "February", "March", "April", "May", "June", "July",
+                        "August", "September", "October", "November", "December"};
+
+            var shortNames = months.Where(name => name.Length < 6)
+                                .OrderBy(name => name.Length)
+                                .Select(name => name);
+
+            return Content(String.Join(",",shortNames));
+
+            //return Json(new { Pera = 10, Djoka = "TestString"} , JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RouteTest(int year, string category)
+        {
+            return Content(string.Format("{0}/{1}", year, category));
         }
 
         public ActionResult Contact()

@@ -13,6 +13,13 @@ namespace WebApplicationTest
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "RouteTest",
+            //    url: "route/test/{year}/{category}",
+            //    defaults: new { controller = "Home", action = "RouteTest",
+            //        year = UrlParameter.Optional, category = UrlParameter.Optional }
+            //);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
