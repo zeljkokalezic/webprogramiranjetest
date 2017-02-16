@@ -13,12 +13,32 @@ namespace WebApplicationTest
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute(
-            //    name: "RouteTest",
-            //    url: "route/test/{year}/{category}",
-            //    defaults: new { controller = "Home", action = "RouteTest",
-            //        year = UrlParameter.Optional, category = UrlParameter.Optional }
-            //);
+            routes.MapMvcAttributeRoutes();
+
+            routes.MapRoute(
+                name: "RouteTest",
+                url: "route/test/{year}/{category}",
+                defaults: new
+                {
+                    controller = "Home",
+                    action = "RouteTest",
+                    year = UrlParameter.Optional,
+                    category = UrlParameter.Optional
+                },
+                constraints: new { year = @"\d{4}" }
+            );
+
+            routes.MapRoute(
+                name: "FreeDownload",
+                url: "freedownload",
+                defaults: new
+                {
+                    controller = "Home",
+                    action = "RouteTest",
+                    year = 2017,
+                    category = "Download"
+                }
+            );
 
             routes.MapRoute(
                 name: "Default",

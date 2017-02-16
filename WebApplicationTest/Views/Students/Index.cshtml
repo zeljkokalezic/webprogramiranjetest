@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplicationTest.Models.Student>
+﻿@model WebApplicationTest.Models.StudentGridViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -9,18 +9,33 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("Search")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+           @Html.ActionLink("Name", "Index", Model.QueryStringSorting("Name"))
+        </th>
+        <th>
+            @Html.ActionLink("City", "Index", Model.QueryStringSorting("Address.City"))
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Students) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address.City)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -29,5 +44,16 @@
         </td>
     </tr>
 }
-
 </table>
+
+<p>
+    Page:
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        @Html.ActionLink(i.ToString(), "Index", Model.QueryStringPaging(i))
+        if (i < Model.TotalPages)
+        {
+            @Html.Raw(" | ")
+        }
+    }
+</p>

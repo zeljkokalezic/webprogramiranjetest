@@ -24,6 +24,42 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Address.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Graduated, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Graduated, new { })
+                @Html.ValidationMessageFor(model => model.Graduated, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearOfStudy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*We could also use EnumDropDownListFor but we want to show the general case*@
+                @*@Html.EnumDropDownListFor(model => model.YearOfStudy, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(m => m.YearOfStudy,
+                    new SelectList(Enum.GetValues(typeof(WebApplicationTest.Models.YearOfStudy))),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.YearOfStudy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Courses, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.Courses, new MultiSelectList(ViewBag.Courses, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Courses, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
