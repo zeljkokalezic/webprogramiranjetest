@@ -18,15 +18,15 @@ namespace WebApplicationTest.Controllers
         // GET: Students
         public ActionResult Index(string sortBy = "Name", string sortOrder = "ASC", int page = 1, int pageSize = 10, string search = "")
         {
-            //reset paging when query changes
-            if (Request.UrlReferrer != null)
-            {
-                var oldSearch = HttpUtility.ParseQueryString(Request.UrlReferrer.Query)["Search"];
-                if (search != oldSearch)
-                {
-                    page = 1;
-                }
-            }
+            ////reset paging when query changes
+            //if (Request.UrlReferrer != null)
+            //{
+            //    var oldSearch = HttpUtility.ParseQueryString(Request.UrlReferrer.Query)["Search"];
+            //    if (search != oldSearch)
+            //    {
+            //        page = 1;
+            //    }
+            //}
 
             //This is not a production ready code - we need edge case handling and exception handling
             //first we filter and order the list

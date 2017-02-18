@@ -10,5 +10,14 @@ namespace WebApplicationTest.Models
         public int Id { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
+        public int Number { get; set; }
+
+        public Type AddressType { get; set; }
+    }
+
+    public enum Type
+    {
+        Village,
+        City
     }
 }
