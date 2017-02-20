@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using WebApplicationTest.Models;
+using System.Net.Mail;
 
 namespace WebApplicationTest
 {
@@ -19,7 +20,16 @@ namespace WebApplicationTest
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            //return Task.FromResult(0);
+            string to = message.Destination;
+            string from = "admin@website.com";//add webconfig here
+
+            MailMessage email = new MailMessage(from, to);
+            email.Subject = message.Subject;
+            email.Body = message.Body;
+
+            SmtpClient client = new SmtpClient();
+            return client.SendMailAsync(email);
         }
     }
 
@@ -54,12 +64,12 @@ namespace WebApplicationTest
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false
             };
-
+            
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);

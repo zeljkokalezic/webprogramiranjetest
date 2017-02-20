@@ -6,10 +6,10 @@ using System.Web;
 
 namespace WebApplicationTest.Models
 {
-    public class Student : IValidatableObject
+    public class Student : ApplicationUser, IValidatableObject
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [Display(Name = "Ime")]

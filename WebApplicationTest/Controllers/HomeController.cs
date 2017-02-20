@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,17 +10,20 @@ namespace WebApplicationTest.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = Role.ADMIN)]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
 
+            #region Comments
             //ViewBag.Message = "Your application description page is bla bla.";
 
             //string[] months = { "January", "February", "March", "April", "May", "June", "July",
@@ -32,10 +36,13 @@ namespace WebApplicationTest.Controllers
             //return Content(String.Join(",",shortNames));
 
             //return Json(new { Pera = 10, Djoka = "TestString"} , JsonRequestBehavior.AllowGet);
+            #endregion
         }
 
         public ActionResult TestAction()
-        { 
+        {
+            throw new Exception("Error");
+
             ViewBag.Person = new Student() { Name = "Zeljko" };
             ViewData["Message"] = "From Controller";
             ViewData["Person"] = new Person() { Name = "Djole" }; //"Mile";//new Student() { Name = "Perica" };
@@ -79,7 +86,17 @@ namespace WebApplicationTest.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            if (User.IsInRole(Role.ADMIN))
+            {
+                string currentUserId = User.Identity.GetUserId();
+                Administrator currentUser = db.Administrators.FirstOrDefault(x => x.Id == currentUserId);
+
+                ViewBag.Message = "User is ADMIN, admin property is: " + currentUser.AdministratorProperty;
+            }
+            else
+            {
+                ViewBag.Message = "Your application contact page.";
+            }
 
             return View();
         }

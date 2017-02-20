@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace WebApplicationTest.Models
 {
@@ -79,6 +80,13 @@ namespace WebApplicationTest.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Birthday { get; set; }
     }
 
     public class ResetPasswordViewModel
